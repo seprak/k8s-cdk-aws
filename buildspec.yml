@@ -7,7 +7,7 @@ phases:
       - npm install -g aws-cdk
   pre_build:
     commands:
-    - echo In the pre_build phase
+    - echo In the pre_build phase..
     - cdk ls
   build:
     commands:
