@@ -36,7 +36,7 @@ public class K8SCdkAwsStack extends Stack {
 		final Cluster cluster = Cluster.Builder.create(this, "ecs-cluster")
                 .clusterName("my-test-cluster")
                 .vpcSubnets(List.of(SubnetSelection.builder().subnets(vpcStack.getPrivateSubnets()).build()))
-                .vpc(vpcStack).version(KubernetesVersion.V1_21)
+                .version(KubernetesVersion.V1_21)
             .build();
 	}
 	
