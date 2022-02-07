@@ -67,9 +67,9 @@ public class EksStack extends Stack {
                 .vpc(vpc)
                 .build();
 
-        Tags.of(cluster).add("owner", properties.getProperty("labels.owner"));
-        Tags.of(cluster).add("env", properties.getProperty("labels.env"));
-        Tags.of(cluster).add("app", properties.getProperty("labels.app"));
+        Tags.of(cluster).add("owner", properties.getProperty("labels.owner", "vlado"));
+        Tags.of(cluster).add("env", properties.getProperty("labels.env", "dev"));
+        Tags.of(cluster).add("app", properties.getProperty("labels.app", "test-app"));
 
         // Gather policies for node role
         List<IManagedPolicy> policies = new ArrayList<>();
@@ -120,9 +120,9 @@ public class EksStack extends Stack {
                 .build();
 
         Tags.of(nodegroup).add("name", "ng1-node");
-        Tags.of(nodegroup).add("owner", properties.getProperty("labels.owner"));
-        Tags.of(nodegroup).add("env", properties.getProperty("labels.env"));
-        Tags.of(nodegroup).add("app", properties.getProperty("labels.app"));
+        Tags.of(nodegroup).add("owner", properties.getProperty("labels.owner", "vlado"));
+        Tags.of(nodegroup).add("env", properties.getProperty("labels.env", "dev"));
+        Tags.of(nodegroup).add("app", properties.getProperty("labels.app", "eks-test"));
     }
 
     public Cluster getCluster() {

@@ -19,12 +19,12 @@ public class K8SCdkAwsApp {
 
                 // Uncomment the next block to specialize this stack for the AWS Account
                 // and Region that are implied by the current CLI configuration.
-                /*
+                
                 .env(Environment.builder()
                         .account(System.getenv("CDK_DEFAULT_ACCOUNT"))
                         .region(System.getenv("CDK_DEFAULT_REGION"))
                         .build())
-                */
+                
 
                 // Uncomment the next block if you know exactly what Account and Region you
                 // want to deploy the stack to.
@@ -41,8 +41,8 @@ public class K8SCdkAwsApp {
         Properties properties = Config.properties;
 
         StackProps props = StackProps.builder().env(Environment.builder()
-                .account(Aws.ACCOUNT_ID)
-                .region(Aws.REGION).build())
+        		.account(System.getenv("CDK_DEFAULT_ACCOUNT"))
+                .region(System.getenv("CDK_DEFAULT_REGION")).build())
                 .build();
 
 //        VpcStack vpcStack = new VpcStack(app, Strings.getPropertyString("vpc.stack",
