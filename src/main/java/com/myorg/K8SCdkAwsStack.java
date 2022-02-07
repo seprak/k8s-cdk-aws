@@ -31,39 +31,7 @@ public class K8SCdkAwsStack extends Stack {
 		// example resource
 		final Queue queue = Queue.Builder.create(this, "K8SCdkAwsQueue").visibilityTimeout(Duration.seconds(300))
 				.build();
-		
-        Vpc vpcStack = getVPCStack(this, "my-test-eks-vpc");
-		final Cluster cluster = Cluster.Builder.create(this, "ecs-cluster")
-                .clusterName("my-test-cluster")
-                .vpcSubnets(List.of(SubnetSelection.builder().subnets(vpcStack.getPrivateSubnets()).build()))
-                .version(KubernetesVersion.V1_21)
-            .build();
 	}
 	
-    public Vpc getVPCStack(final Construct scope, String vpcName) {
-        Vpc vpc = Vpc.Builder.create(this, "vpc")
-                .cidr("10.0.0.0/16")
-                .enableDnsHostnames(true)
-                .enableDnsSupport(true)
-                .maxAzs(2)
-                .subnetConfiguration(
-                        List.of(
-                            SubnetConfiguration.builder().name("my-private-1").subnetType(SubnetType.PRIVATE_ISOLATED).build(),
-                            SubnetConfiguration.builder().name("my-private-2").subnetType(SubnetType.PRIVATE_ISOLATED).build(),
-                            SubnetConfiguration.builder().name("my-public-1").subnetType(SubnetType.PUBLIC).build(),
-                            SubnetConfiguration.builder().name("my-public-2").subnetType(SubnetType.PUBLIC).build()))
-                .build();
-        Tags.of(vpc).add("Name", vpcName);
-        Tags.of(vpc).add("Purpose", "training");
-        
-        List<ISubnet> subnets = vpc.getPublicSubnets();
-        int counter =0;
-        for (ISubnet subnet : subnets) {
-            counter++;
-            CfnOutput.Builder.create(this,"output-subnet-id-"+counter).value(subnet.getSubnetId()).build();
-        }
-        CfnOutput.Builder.create(this, "output-vpc-id").value(vpc.getVpcId()).build();
-        
-        return vpc;
-    }
+
 }

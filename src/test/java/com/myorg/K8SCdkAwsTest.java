@@ -24,5 +24,10 @@ public class K8SCdkAwsTest {
 				put("VisibilityTimeout", 300);
 			}
 		});
+		template.hasResourceProperties("AWS::SQS::Queue", new HashMap<String, Number>() {
+			{
+				put("VisibilityTimeout", 300);
+			}
+		});
 	}
 }
