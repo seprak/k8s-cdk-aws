@@ -102,11 +102,11 @@ public class EksStack extends Stack {
                 .cluster(cluster)
                 //.launchTemplateSpec(LaunchTemplateSpec.builder().id("cdk-eks-launch-template").build())
                 .tags(Map.of("owner","vlado","env","dev","app","read-only"))
-                .amiType(NodegroupAmiType.AL2_X86_64)
+//                .amiType(NodegroupAmiType.AL2_X86_64)
                 .capacityType(CapacityType.ON_DEMAND)
-                .desiredSize(3)
+                .desiredSize(2)
                 .maxSize(5)
-                .minSize(3)
+                .minSize(2)
                 .diskSize(100)
                 .labels(Map.of("node-group", "ng1", "instance-type", Strings.getPropertyString("eks.instance.type",
                         properties,
@@ -115,9 +115,9 @@ public class EksStack extends Stack {
 //                        .sshKeyName(Strings.getPropertyString("ssh.key.name",
 //                                properties, "")).build())
                 .nodegroupName("ng1")
-                .instanceTypes(List.of(new InstanceType(Strings.getPropertyString("eks.instance.type",
-                        properties,
-                        Constants.EKS_INSTANCE_TYPE.getValue()))))
+//                .instanceTypes(List.of(new InstanceType(Strings.getPropertyString("eks.instance.type",
+//                        properties,
+//                        Constants.EKS_INSTANCE_TYPE.getValue()))))
 //                .subnets(SubnetSelection.builder().subnets(cluster.getVpc().getPrivateSubnets()).build())
 //                .nodeRole(nodeRole)
                 .build();
