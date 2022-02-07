@@ -62,7 +62,7 @@ public class EksStack extends Stack {
         this.cluster = Cluster.Builder.create(this, eksId)
                 .clusterName(eksId)
                 .defaultCapacity(Strings.getPropertyInt("eks.default.capacity", properties, Constants.EKS_DEFAULT_CAPACITY.getIntValue()))
-                .endpointAccess(EndpointAccess.PRIVATE)
+                .endpointAccess(EndpointAccess.PUBLIC_AND_PRIVATE)
                 .version(KubernetesVersion.V1_21)
                 .vpc(vpc)
                 .build();
