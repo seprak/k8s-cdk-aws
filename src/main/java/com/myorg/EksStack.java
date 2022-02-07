@@ -10,6 +10,7 @@ import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.Tags;
 import software.amazon.awscdk.services.ec2.IVpc;
 import software.amazon.awscdk.services.ec2.InstanceType;
+import software.amazon.awscdk.services.ec2.Subnet;
 import software.amazon.awscdk.services.ec2.SubnetSelection;
 import software.amazon.awscdk.services.ec2.SubnetType;
 import software.amazon.awscdk.services.ec2.Vpc;
@@ -64,7 +65,7 @@ public class EksStack extends Stack {
                 .clusterName(eksId)
                 .defaultCapacity(Strings.getPropertyInt("eks.default.capacity", properties, Constants.EKS_DEFAULT_CAPACITY.getIntValue()))
                 .endpointAccess(EndpointAccess.PRIVATE)
-                .vpcSubnets(List.of(SubnetSelection.builder().subnetType(SubnetType.PRIVATE_ISOLATED).build()))
+                .vpcSubnets(List.of(SubnetSelection.builder().subnets(List.of(Subnet.fromSubnetId(this, "sub1", "subnet-066eb912ea540307f"), Subnet.fromSubnetId(this, "sub2", "subnet-07fd0dde787072c16"), Subnet.fromSubnetId(this, "sub3", "subnet-03db51bcdac6f2eeb"))).build()))
                 .version(KubernetesVersion.V1_21)
                 .vpc(vpc)
                 .build();
