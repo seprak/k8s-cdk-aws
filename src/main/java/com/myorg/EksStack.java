@@ -11,6 +11,8 @@ import software.amazon.awscdk.Tags;
 import software.amazon.awscdk.services.ec2.IVpc;
 import software.amazon.awscdk.services.ec2.InstanceType;
 import software.amazon.awscdk.services.ec2.SubnetSelection;
+import software.amazon.awscdk.services.ec2.Vpc;
+import software.amazon.awscdk.services.ec2.VpcLookupOptions;
 import software.amazon.awscdk.services.eks.CapacityType;
 import software.amazon.awscdk.services.eks.Cluster;
 import software.amazon.awscdk.services.eks.EndpointAccess;
@@ -31,7 +33,7 @@ public class EksStack extends Stack {
 
     private Cluster cluster;
     public EksStack(final Construct scope, final String id) {
-        this(scope, id, null, null);
+        this(scope, id, null);
     }
 
     /**
@@ -41,8 +43,9 @@ public class EksStack extends Stack {
      * @param id
      * @param props
      */
-    public EksStack(final Construct scope, final String id, final StackProps props, IVpc vpc) {
+    public EksStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
+        IVpc vpc = Vpc.fromLookup(this, "vpc-0d45e0b565cbf8994", VpcLookupOptions.builder().vpcName("eks-private-VPC").vpcId("vpc-0d45e0b565cbf8994").build()); // vpcStack.getVpc();
 
         // Get properties object
         final Properties properties = Config.properties;

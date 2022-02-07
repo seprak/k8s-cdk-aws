@@ -1,16 +1,12 @@
 package com.myorg;
 
+import java.util.Properties;
+
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.Aws;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
-import software.amazon.awscdk.services.ec2.IVpc;
-import software.amazon.awscdk.services.ec2.Vpc;
-import software.amazon.awscdk.services.ec2.VpcLookupOptions;
 import software.amazon.awscdk.services.eks.Cluster;
-
-import java.util.Arrays;
-import java.util.Properties;
 
 public class K8SCdkAwsApp {
     public static void main(final String[] args) {
@@ -53,11 +49,10 @@ public class K8SCdkAwsApp {
 //                properties,
 //                Constants.VPC_STACK.getValue()), props);
 
-        IVpc vpc = Vpc.fromLookup(app, "vpc-0d45e0b565cbf8994", VpcLookupOptions.builder().vpcName("eks-private-VPC").vpcId("vpc-0d45e0b565cbf8994").build()); // vpcStack.getVpc();
 
         EksStack eksStack = new EksStack(app, Strings.getPropertyString("eks.stack",
                 properties,
-                Constants.EKS_STACK.getValue()), props, vpc);
+                Constants.EKS_STACK.getValue()), props);
 
         Cluster cluster = eksStack.getCluster();
         
