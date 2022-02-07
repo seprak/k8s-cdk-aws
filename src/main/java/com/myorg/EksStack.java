@@ -89,11 +89,11 @@ public class EksStack extends Stack {
         policies.add(ManagedPolicy.fromManagedPolicyArn(this, "kms-policy",
                 Strings.getPropertyString("iam.policy.arn.kms.ssm.use", properties, Constants.NOT_FOUND.getValue())));
 
-        Role nodeRole = Role.Builder.create(this, "eks-nodes-role")
-                .roleName("EksNodes")
-                .managedPolicies(policies)
-                .assumedBy(new ServicePrincipal(Strings.getPropertyString("ec2.service.name", properties, "")))
-                .build();
+//        Role nodeRole = Role.Builder.create(this, "eks-nodes-role")
+//                .roleName("EksNodes")
+//                .managedPolicies(policies)
+//                .assumedBy(new ServicePrincipal(Strings.getPropertyString("ec2.service.name", properties, "")))
+//                .build();
 
         /*
          * Build Nodegroup
@@ -119,7 +119,7 @@ public class EksStack extends Stack {
                         properties,
                         Constants.EKS_INSTANCE_TYPE.getValue()))))
                 .subnets(SubnetSelection.builder().subnets(cluster.getVpc().getPrivateSubnets()).build())
-                .nodeRole(nodeRole)
+//                .nodeRole(nodeRole)
                 .build();
 
         Tags.of(nodegroup).add("name", "ng1-node");
